@@ -5,6 +5,7 @@ import PokemonList from "./components/PokemonList";
 import { getTypeIcon } from "./utils/getTypeIcon.js";
 import { getFavorites } from "./utils/favorites";
 import LoadingPage from "./components/LoadingPage";
+import logo from "./assets/logo.png"; // Import the logo image
 
 function App() {
   const [pokemonTypesData, setPokemonTypesData] = useState([]); // type --> normal, fighting, etc...
@@ -198,7 +199,8 @@ function App() {
       {
         <div className={`main ${!loading ? "no-scroll" : ""} `}>
           <div className="main-title">
-            <div className="main-title-text">POKÉDEX</div>
+            {/* <div className="main-title-text">POKÉDEX</div> */}
+            <img className="main-title-img" src={logo}></img>
 
             <button className="button-favorite" onClick={handleFavoritesClick}>
               <img
@@ -215,8 +217,11 @@ function App() {
               onClick={() => onTypeButtonClick("all")}
               className={"button card-all "}
             >
-              <div className="button-img">◼</div>
-              <div className="">ALL</div>
+              <img
+                className="button-img"
+                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/581e2efc-8fab-47ca-9536-3770aab24ea4/d2joc5j-c2562d13-9dbe-4747-b70b-03e25d3abb80.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzU4MWUyZWZjLThmYWItNDdjYS05NTM2LTM3NzBhYWIyNGVhNFwvZDJqb2M1ai1jMjU2MmQxMy05ZGJlLTQ3NDctYjcwYi0wM2UyNWQzYWJiODAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.7RCqdHsS0eXFQ4PjKi-Nusb3gfY259k3RIeHZv4rlKs"
+              ></img>
+              {screenWidth > 600 ? "ALL" : ""}
             </button>
             {pokemonTypesData.map((p) => {
               if ((p.name == "unknown") | (p.name == "shadow")) return;
