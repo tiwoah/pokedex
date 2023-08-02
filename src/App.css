@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Epilogue&family=Lexend&family=Urbanist:wght@400;900&display=swap');
+
+html, body {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+* {
+  font-family: 'Lexend', sans-serif;
+}
+
+html::before {
+  content: "";
+  background-image: url('https://img.freepik.com/free-vector/abstract-geometric-pattern-background_1319-242.jpg?w=996&t=st=1690743858~exp=1690744458~hmac=2db546c1db3736c0deb04540047702a1fe6fc942c03af84cc46f80c85c5eda4f');
+  background-size: 500px;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  min-height: 100vh;
+}
+
+/* SCROLLBAR */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 25px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* LOADING PAGE */
+.loading-container {
+
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  width: 100vw;
+  height: 100vh;
+  z-index: 69;
+  
+  
+  pointer-events: none;
+}
+
+.loading-content {
+  border-radius: 5px;
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  font-size: 3em;
+  z-index: 68;
+  animation: spin 2s ease-in-out 0s infinite normal;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  animation: spin 2s ease-in-out 1s infinite normal;
+}
+
+.page-loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.page-spinner {
+  width: 50px;
+  height: 50px;
+  animation: spin 2s ease-in-out 0s infinite normal;
+  top: 100px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    background-color: rgba(red, green, blue, 1);
+  }
+  /* 60% {
+    opacity: 0;
+  } */
+  to {
+    opacity: 0;
+    background-color: rgba(red, green, blue, 0);
+  }
+
+}
+.loading-container.fade-out {
+  animation: fadeOut 1s ease-in 0.2s 1 normal forwards;
+}
+
+
+/*  GENERAL */
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
+
+/*  */
+
+.main {
+  position: relative;
+}
+
+
+.main-title {
+  position: relative;
+  color: black;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.main-title-text {
+  position: relative;
+  text-align: center;
+  font-family: 'Lexend', sans-serif;
+  font-weight: bold;
+  font-size: 5em;
+  text-shadow: 0px 0px 25px white;
+  letter-spacing: -7px;
+}
+
+.button-favorite {
+  position: absolute;
+  top: 80px;
+  right: calc(5vw + 30px);
+  font-size: 1em;
+  height: 40px;
+  border-radius: 999em;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.button-container {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  background-color: rgb(241, 241, 241);
+  border-radius: 999em;
+  margin-bottom: 50px;
+  color: rgb(235, 235, 235);
+  box-shadow: 0px 0px 24px rgb(0, 0, 0, 0.2);
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.button {
+  min-width: 50px;
+  height: 40px;
+  border-radius: 999em;
+  text-transform: uppercase;
+  color: white;
+  border: none;
+  font-size: 1em;
+  position: relative;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  margin: 5px;
+  gap: 5px;
+  text-shadow: 0 0 2px rgb(0, 0, 0, 1);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.button:hover {
+  transform: scale(115%);
+}
+
+
+
+.active {
+  /* box-shadow: 0px 0px 3px rgb(0, 0, 0, 1); */
+  outline: 2px solid rgb(0, 0, 0, 0.5);
+}
+
+.button-img {
+  padding: 0;
+  margin: 0;
+  width: 80%;
+  margin: auto;
+}
+
+/* CONTAINER */
+
+.container {
+  background-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  gap: 25px;
+  margin: auto;
+  width: 90%;
+  justify-content: center;
+  min-height: 100px;
+  padding-bottom: 50px;
+}
+
+.pokemon-card {
+  background-color: aliceblue;
+  width: calc(33.33% - 45px);
+  min-width: 200px;
+  max-width: 450px;
+  height: 220px;
+  position: relative;
+  border-radius: 30px;
+  color: #FFF;
+  text-shadow: 0px 0px 4px black;
+  box-shadow: 1px 1px 27px #b4b4b4;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.blurIn {
+  transform: translateY(-15px) translateX(-3px);
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+  animation: fadein ease-in-out 0.3s 0.02s forwards;
+  -webkit-animation: fadein ease-in-out 0.3s 0.02s forwards;
+}
+
+@keyframes fadein {
+  50% {
+    -webkit-filter: opacity(100%) blur(10px);
+  }
+
+  100% {
+    -webkit-filter: opacity(100%) blur(0px);
+    transform: translateY(0);
+  }
+}
+
+.pokemon-card:hover {
+  transform: scale(105%);
+  box-shadow: 0px 0px 35px #000;
+}
+
+.pokemon-card-container {
+  padding: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pokemon-id {
+  opacity: 0.6;
+}
+
+.pokemon-name {
+  font-size: 1.5vw;
+  font-weight: 600;
+  text-transform: capitalize;
+  width: 70%;
+}
+
+.pokemon-types {
+  display: flex;
+  padding-top: 5px;
+  gap: 10px;
+}
+
+.tag {
+  background-color: #676767;
+  width: fit-content;
+  border-radius: 20px;
+  padding: 8px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 2px black;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pokemon-card-detail {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  background-color: transparent;
+  border-radius: 30px;
+}
+
+.pokemon-card-dots {
+  background-image: radial-gradient(black 2px, transparent 0);
+  background-size: 15px 15px;
+  background-position: 0px 0px;
+  width: 40%;
+  height: 20%;
+  position: absolute;
+  left: 5%;
+  bottom: 0%;
+  opacity: 0.05;
+}
+
+.pokemon-img-bg {
+  width: 60%;
+  top: -20%;
+  right: -5%;
+  opacity: 0.05;
+  position: absolute;
+}
+
+
+.pokemon-img {
+  width: 55%;
+  position: absolute;
+  top: -15%;
+  right: -5%;
+  pointer-events: none;
+}
+
+.pokemon-card-favorite {
+  position: absolute;
+  width:40px;
+  height: 40px;
+  left: 14px;
+  bottom: 14px;
+  background-color: transparent;
+  /* background-image: url('https://www.svgrepo.com/show/114534/favorite.svg'); */
+  background-image: url('https://www.svgrepo.com/show/493935/favorite.svg');
+  background-size: cover;
+  border: none;
+  opacity: 0.25;
+  transition: transform 0.3s ease;
+}
+
+
+.pokemon-card-favorite:hover {
+  transform: scale(110%);
+}
+
+
+.bob {
+  animation-name: bobbing;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  opacity: 1;
+}
+
+.not {
+  opacity: 0.25;
+  background-image: url('https://www.svgrepo.com/show/493935/favorite.svg');
+  /* animation-name: fade;
+  animation-duration: 0.1s;
+  animation-timing-function: ease-in-out; */
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px); /* Adjust this value to control the height of the bob */
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.scroll-arrow-container {
+  position: fixed;
+}
+
+.scroll-arrow {
+  width: 60px;
+  position: fixed;
+  bottom: 2vw;
+  right: 2vw;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+/*  */
+
+.card-all {
+  background-color: #303030;
+}
+
+.card-normal {
+  background-color: hsl(59, 21%, 47%);
+}
+
+.card-fire {
+  background-color: hsl(26, 85%, 46%);
+}
+
+.card-water {
+  background-color: hsl(221, 82%, 56%);
+}
+
+.card-electric {
+  background-color: hsl(48, 93%, 47%);
+}
+
+.card-grass {
+  background-color: hsl(98, 52%, 44%);
+}
+
+.card-ice {
+  background-color: hsl(177, 47%, 62%);
+}
+
+.card-fighting {
+  background-color: hsl(2, 66%, 36%);
+}
+
+.card-poison {
+  background-color: hsl(301, 45%, 34%);
+}
+
+.card-ground {
+  background-color: hsl(43, 68%, 54%);
+}
+
+.card-flying {
+  background-color: hsl(256, 81%, 66%);
+}
+
+.card-psychic {
+  background-color: hsl(342, 93%, 55%);
+}
+
+.card-bug {
+  background-color: hsl(67, 75%, 31%);
+}
+
+.card-rock {
+  background-color: hsl(50, 54%, 36%);
+}
+
+.card-ghost {
+  background-color: hsl(266, 27%, 37%);
+}
+
+.card-dragon {
+  background-color: hsl(257, 97%, 50%);
+}
+
+.card-dark {
+  background-color: hsl(24, 23%, 26%);
+}
+
+.card-steel {
+  background-color: hsl(240, 19%, 66%);
+}
+
+.card-fairy {
+  background-color: hsl(330, 50%, 58%);
+}
+
+/* Swapping the background colors */
+.card-normal {
+  background-color: hsl(55, 25%, 65%);
+}
+
+.card-fire {
+  background-color: hsl(17, 88%, 64%);
+}
+
+.card-water {
+  background-color: hsl(219, 75%, 61%);
+}
+
+.card-electric {
+  background-color: hsl(54, 93%, 65%);
+}
+
+.card-grass {
+  background-color: hsl(100, 51%, 63%);
+}
+
+.card-ice {
+  background-color: hsl(180, 54%, 73%);
+}
+
+.card-fighting {
+  background-color: hsl(359, 61%, 52%);
+}
+
+.card-poison {
+  background-color: hsl(309, 45%, 56%);
+}
+
+.card-ground {
+  background-color: hsl(46, 68%, 71%);
+}
+
+.card-flying {
+  background-color: hsl(248, 83%, 72%);
+}
+
+.card-psychic {
+  background-color: hsl(332, 89%, 70%);
+}
+
+.card-bug {
+  background-color: hsl(70, 71%, 48%);
+}
+
+.card-rock {
+  background-color: hsl(47, 55%, 50%);
+}
+
+.card-ghost {
+  background-color: hsl(276, 34%, 48%);
+}
+
+.card-dragon {
+  background-color: hsl(251, 93%, 67%);
+}
+
+.card-dark {
+  background-color: hsl(18, 18%, 46%);
+}
+
+.card-steel {
+  background-color: hsl(240, 12%, 80%);
+}
+
+.card-fairy {
+  background-color: hsl(331, 55%, 68%);
+}
+
+.tag-normal {
+  background-color: hsl(55, 25%, 75%);
+}
+
+.tag-fire {
+  background-color: hsl(17, 88%, 74%);
+}
+
+.tag-water {
+  background-color: hsl(219, 75%, 71%);
+}
+
+.tag-electric {
+  background-color: hsl(54, 93%, 75%);
+}
+
+.tag-grass {
+  background-color: hsl(100, 51%, 73%);
+}
+
+.tag-ice {
+  background-color: hsl(180, 54%, 83%);
+}
+
+.tag-fighting {
+  background-color: hsl(359, 61%, 62%);
+}
+
+.tag-poison {
+  background-color: hsl(309, 45%, 66%);
+}
+
+.tag-ground {
+  background-color: hsl(46, 68%, 81%);
+}
+
+.tag-flying {
+  background-color: hsl(248, 83%, 82%);
+}
+
+.tag-psychic {
+  background-color: hsl(332, 89%, 80%);
+}
+
+.tag-bug {
+  background-color: hsl(70, 71%, 58%);
+}
+
+.tag-rock {
+  background-color: hsl(47, 55%, 60%);
+}
+
+.tag-ghost {
+  background-color: hsl(276, 34%, 58%);
+}
+
+.tag-dragon {
+  background-color: hsl(251, 93%, 77%);
+}
+
+.tag-dark {
+  background-color: hsl(18, 18%, 56%);
+}
+
+.tag-steel {
+  background-color: hsl(240, 12%, 90%);
+}
+
+.tag-fairy {
+  background-color: hsl(331, 55%, 78%);
+}
