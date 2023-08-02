@@ -149,7 +149,7 @@ function App() {
     const fetchData = async () => {
       if (!loading) {
         console.log("Fetching data.");
-        continuePokemonData(pokemonData.length + dataExtend);
+        continuePokemonData(dataExtend);
       }
     };
 
@@ -176,6 +176,22 @@ function App() {
     initData();
   }, []);
 
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  // Effect to add event listener for screen resize
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       <LoadingPage />
@@ -185,7 +201,10 @@ function App() {
             <div className="main-title-text">POKÉDEX</div>
 
             <button className="button-favorite" onClick={handleFavoritesClick}>
-              favorites
+              <img
+                className="button-favorite-img"
+                src="https://www.svgrepo.com/show/114534/favorite.svg"
+              ></img>
             </button>
           </div>
 
@@ -211,7 +230,7 @@ function App() {
                   className={"button card-" + p.name}
                 >
                   <img className="button-img" src={typeImg}></img>
-                  {p.name}
+                  {screenWidth > 600 ? p.name : ""}
                 </button>
               );
             })}
