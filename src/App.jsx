@@ -11,7 +11,6 @@ function App() {
   const [rawPokemonData, setRawPokemonData] = useState([]); // {{id, name}, {id, name}}
   const [pokemonData, setPokemonData] = useState([]); // {{id, name}, {id, name}}
 
-  const [initialized, setInitialized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [dataLoading, setDataLoading] = useState(false);
 
@@ -25,22 +24,17 @@ function App() {
   let alreadyBottom = false; //edgy debounce
 
   const initData = async () => {
-    if (!initialized) {
-      setLoading(false);
+    const response = await axios.get(allPokemonURL);
 
-      const response = await axios.get(allPokemonURL);
+    setRawPokemonData(response.data.results);
+    setPokemonDataFromRaw(20, true, response.data.results);
 
-      setRawPokemonData(response.data.results);
-      setPokemonDataFromRaw(20, true, response.data.results);
+    const response2 = await axios.get("https://pokeapi.co/api/v2/type");
+    setPokemonTypesData(response2.data.results);
 
-      const response2 = await axios.get("https://pokeapi.co/api/v2/type");
-      setPokemonTypesData(response2.data.results);
-
-      setLoading(false);
-      const loadingContainer = document.querySelector(".loading-container");
-      loadingContainer.classList.add("fade-out");
-      setInitialized(true);
-    }
+    setLoading(false);
+    const loadingContainer = document.querySelector(".loading-container");
+    loadingContainer.classList.add("fade-out");
   };
 
   const setPokemonDataFromRaw = async (
@@ -54,41 +48,80 @@ function App() {
     }
     const tempArray = [];
     setPokemonData([]); // without this, its too efficient. (prevents re-rendering cards causing some to not fade in)
-    for (let count = 0; count < raw.length; count++) {
-      const result = await axios.get(
-        raw[count].url == null ? raw[count].pokemon.url : raw[count].url // if null, its getting pokemon list from api/Type
-      );
-      tempArray.push(result.data);
-      if (count > maxCount - 1) break;
+    // for (let count = 0; count < raw.length; count++) {
+    //   const result = await axios.get(
+    //     raw[count].url == null ? raw[count].pokemon.url : raw[count].url // if null, its getting pokemon list from api/Type
+    //   );
+    //   tempArray.push(result.data);
+    //   if (count > maxCount - 1) break;
+    // }
+    // tempArray.sort((a, b) => (a.id > b.id ? 1 : -1));
+    // setPokemonData(tempArray);
+    // setDataLoading(false);
+
+    // Fetch the data for all Pokemon concurrently using Promise.all()
+    const fetchPromises = raw.slice(0, maxCount).map((pokemon) => {
+      const url = pokemon.url == null ? pokemon.pokemon.url : pokemon.url;
+      return axios.get(url);
+    });
+
+    try {
+      const results = await Promise.all(fetchPromises);
+      const tempArray = results.map((response) => response.data);
+      tempArray.sort((a, b) => (a.id > b.id ? 1 : -1));
+      setPokemonData(tempArray);
+    } catch (error) {
+      console.error("Error fetching Pokemon data:", error);
     }
-    tempArray.sort((a, b) => (a.id > b.id ? 1 : -1));
-    setPokemonData(tempArray);
+
     setDataLoading(false);
   };
 
   const continuePokemonData = async (maxCount) => {
     setDataLoading(true);
     const tempArray = [...pokemonData];
-    const raw = rawPokemonData;
-    console.log(tempArray.length);
+    // const raw = rawPokemonData;
 
-    for (let count = tempArray.length; count < maxCount; count++) {
-      if (count > raw.length - 1) {
-        console.log("reached end");
-        break;
-      }
-      const result = await axios.get(
-        raw[count].url == null ? raw[count].pokemon.url : raw[count].url // if null, its getting pokemon list from api/Type
-      );
-      tempArray.push(result.data);
+    // console.log("Iterating.");
+    // for (let count = tempArray.length; count < maxCount; count++) {
+    //   if (count > raw.length - 1) {
+    //     console.log("Finished list.");
+    //     break;
+    //   }
+    //   const result = await axios.get(
+    //     raw[count].url == null ? raw[count].pokemon.url : raw[count].url // if null, its getting pokemon list from api/Type
+    //   );
+    //   tempArray.push(result.data);
+    // }
+    // console.log("Finished iterating.");
+    // setPokemonData(tempArray);
+    // setDataLoading(false);
+
+    const raw = rawPokemonData.slice(
+      tempArray.length,
+      tempArray.length + maxCount
+    );
+
+    // Fetch the data for the next batch of Pokemon concurrently using Promise.all()
+    const fetchPromises = raw.map((pokemon) => {
+      const url = pokemon.url == null ? pokemon.pokemon.url : pokemon.url;
+      return axios.get(url);
+    });
+
+    try {
+      const results = await Promise.all(fetchPromises);
+      const newData = results.map((response) => response.data);
+      setPokemonData([...tempArray, ...newData]);
+    } catch (error) {
+      console.error("Error fetching Pokemon data:", error);
     }
-    setPokemonData(tempArray);
+
     setDataLoading(false);
   };
 
   const onTypeButtonClick = async (p) => {
     const urlFetch = p == "all" ? allPokemonURL : p.url;
-    console.log("type clicked:", p.name);
+    // console.log("type clicked:", p.name);
     const response = await axios.get(urlFetch);
 
     setPokemonDataFromRaw(
@@ -102,21 +135,21 @@ function App() {
 
   const handleFavoritesClick = async () => {
     const favorites = getFavorites();
-    console.log(favorites);
+    // console.log(favorites);
     setPokemonDataFromRaw(40, true, favorites);
   };
 
   useEffect(() => {
     // console.log("Rendering...", pokemonData, rawPokemonData);
-    console.log("Render");
+    // console.log("Render");
     setTimeout(() => {
       setLoading(false);
     }, 5000);
 
     const fetchData = async () => {
       if (!loading) {
+        console.log("Fetching data.");
         continuePokemonData(pokemonData.length + dataExtend);
-        console.log("FETCH?");
       }
     };
 
@@ -185,14 +218,6 @@ function App() {
           </div>
 
           <div className="container" ref={myRef}>
-            {/* {isListLoading && (
-              <div className="page-loader">
-                <img
-                  className="page-spinner"
-                  src="https://img.icons8.com/?size=512&id=FSKmFQT9ret9&format=png"
-                ></img>
-              </div>
-            )} */}
             <PokemonList
               pokemonData={pokemonData}
               dataLoading={dataLoading}

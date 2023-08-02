@@ -134,12 +134,11 @@ html::before {
   pointer-events: none;
 }
 
-/*  */
+/*  MAIN PAGE */
 
 .main {
   position: relative;
 }
-
 
 .main-title {
   position: relative;
@@ -161,6 +160,8 @@ html::before {
   letter-spacing: -7px;
 }
 
+/* FAVORITES BUTTON */
+
 .button-favorite {
   position: absolute;
   top: 80px;
@@ -175,6 +176,8 @@ html::before {
   padding-left: 12px;
   padding-right: 12px;
 }
+
+/* TYPE BUTTONS */
 
 .button-container {
   width: 60%;
@@ -194,13 +197,11 @@ html::before {
 }
 
 .button {
-  min-width: 50px;
-  height: 40px;
   border-radius: 999em;
   text-transform: uppercase;
   color: white;
   border: none;
-  font-size: 1em;
+  font-size: 0.8vw;
   position: relative;
   font-weight: 900;
   display: flex;
@@ -212,13 +213,14 @@ html::before {
   text-shadow: 0 0 2px rgb(0, 0, 0, 1);
   padding-left: 12px;
   padding-right: 12px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+
 }
 
 .button:hover {
   transform: scale(115%);
 }
-
-
 
 .active {
   /* box-shadow: 0px 0px 3px rgb(0, 0, 0, 1); */
@@ -249,10 +251,10 @@ html::before {
 
 .pokemon-card {
   background-color: aliceblue;
-  width: calc(33.33% - 45px);
-  min-width: 200px;
+  width: 33vw;
+  /* min-width: 250px; */
   max-width: 450px;
-  height: 220px;
+  padding-bottom: 5%; /* aspect ratio trick */
   position: relative;
   border-radius: 30px;
   color: #FFF;
@@ -313,7 +315,7 @@ html::before {
   width: fit-content;
   border-radius: 20px;
   padding: 8px;
-  font-size: 0.8em;
+  font-size: 0.6vw;
   text-transform: uppercase;
   text-shadow: 0px 0px 2px black;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
@@ -336,7 +338,7 @@ html::before {
   width: 40%;
   height: 20%;
   position: absolute;
-  left: 5%;
+  left: 15%;
   bottom: 0%;
   opacity: 0.05;
 }
@@ -360,17 +362,17 @@ html::before {
 
 .pokemon-card-favorite {
   position: absolute;
-  width:40px;
-  height: 40px;
+  width: 10%;
   left: 14px;
   bottom: 14px;
   background-color: transparent;
   /* background-image: url('https://www.svgrepo.com/show/114534/favorite.svg'); */
   background-image: url('https://www.svgrepo.com/show/493935/favorite.svg');
-  background-size: cover;
+  background-size: contain;
   border: none;
   opacity: 0.25;
   transition: transform 0.3s ease;
+  padding-bottom: 10%;
 }
 
 
@@ -652,4 +654,77 @@ html::before {
 
 .tag-fairy {
   background-color: hsl(331, 55%, 78%);
+}
+
+
+@media (max-width: 600px) {
+  .main-title {
+    position: relative;
+    color: black;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .main-title-text {
+    position: relative;
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    text-shadow: 0px 0px 25px white;
+    letter-spacing: -7px;
+  }
+
+  .button-favorite {
+    position: absolute;
+    right: 10%;
+    top: 60px;
+    font-size: 2vw;
+    border-radius: 999em;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding: 1em;
+  }
+
+  .button-container {
+    width: 80%;
+  }
+
+  .button {
+    font-size: 1.5vw;
+  }
+  
+  .container {
+    padding: 0px;
+    gap: 15px;
+  }
+
+  .pokemon-card {
+    width: 80vw;
+    padding-bottom: 15%;
+  }
+
+  .pokemon-name {
+    font-size: 20px;
+    width: 50%;
+  }
+
+  .tag {
+    font-size: 8px;
+  }
+
+  /* .pokemon-card-favorite {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    bottom: 14px;
+  } */
 }

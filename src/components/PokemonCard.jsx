@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState, useRef } from "react";
-import axios from "axios";
 import { toggleFavorited, isFavorite } from "../utils/favorites";
 
 export default function PokemonCard({ data }) {
@@ -29,7 +28,6 @@ export default function PokemonCard({ data }) {
     } else {
       myRef.current.style.backgroundImage = `url(${inactiveImageURL})`;
       myRef.current.style.opacity = 0.35;
-      console.log("No");
     }
 
     if (loaded) {
