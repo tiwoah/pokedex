@@ -23,7 +23,11 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [infoPanelOpen, setInfoPanelOpen] = useState(false);
 
+  const [btnContainerOffScreen, setBtnContainerOffScreen] = useState(false);
+  const [buttonContainerHeight, setButtonContainerHeight] = useState(0);
+
   const myRef = useRef();
+  const refButtonContainer = useRef();
 
   const allPokemonURL =
     "https://pokeapi.co/api/v2/pokemon?&limit=100000&offset=0";
@@ -139,6 +143,9 @@ function App() {
     }
   };
 
+  let initialButtonContainerTop = 696969;
+  let offset = -20;
+  let btnContainerBottomPadding = 60;
   const handleScroll = (event) => {
     setScrollY(window.scrollY);
 
@@ -156,6 +163,23 @@ function App() {
           fetchData();
           alreadyBottom = true;
         }
+      }
+    }
+
+    if (refButtonContainer.current) {
+      let top = refButtonContainer.current.getBoundingClientRect().top;
+
+      initialButtonContainerTop == 696969
+        ? (initialButtonContainerTop = top + window.scrollY + offset)
+        : initialButtonContainerTop;
+
+      console.log(window.scrollY);
+
+      if (window.scrollY > initialButtonContainerTop) {
+        setBtnContainerOffScreen(true);
+      } else {
+        initialButtonContainerTop = top + window.scrollY + offset;
+        setBtnContainerOffScreen(false);
       }
     }
   };
@@ -178,8 +202,16 @@ function App() {
   useEffect(() => {
     initData();
 
+    if (refButtonContainer.current) {
+      setButtonContainerHeight(refButtonContainer.current.offsetHeight);
+    }
+
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
+
+      if (refButtonContainer.current) {
+        setButtonContainerHeight(refButtonContainer.current.offsetHeight);
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -210,7 +242,12 @@ function App() {
             </button>
           </div>
 
-          <div className="button-container">
+          <div
+            className={`button-container ${
+              btnContainerOffScreen ? "sticky" : ""
+            }`}
+            ref={refButtonContainer}
+          >
             <button
               key={"all"}
               id={"all"}
@@ -241,7 +278,17 @@ function App() {
             })}
           </div>
 
-          <div className="container" ref={myRef}>
+          <div
+            className="container"
+            ref={myRef}
+            style={{
+              paddingTop: btnContainerOffScreen
+                ? `${
+                    buttonContainerHeight + offset + btnContainerBottomPadding
+                  }px`
+                : "0",
+            }}
+          >
             <PokemonList
               pokemonData={pokemonData}
               dataLoading={dataLoading}

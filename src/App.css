@@ -249,6 +249,14 @@ html::before {
   padding-bottom: 10px; */
 }
 
+.sticky {
+  position: fixed;
+  top: 20px;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .button {
   border-radius: 999em;
   text-transform: uppercase;
@@ -617,6 +625,7 @@ html::before {
 .panel-container-flavor {
   width: 50%;
   padding: 30px 0px 30px 0px;
+  min-height: 100px;
 }
 
 /*  */

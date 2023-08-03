@@ -70,6 +70,7 @@ export default function InfoPanel({ data, onClose }) {
                 ? data.sprites.other.home.front_shiny
                 : data.sprites.other["official-artwork"].front_default
             }
+            loading="lazy"
           ></img>
         </div>
 
