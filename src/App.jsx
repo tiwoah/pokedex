@@ -168,6 +168,7 @@ function App() {
 
     if (refButtonContainer.current) {
       let top = refButtonContainer.current.getBoundingClientRect().top;
+      setButtonContainerHeight(refButtonContainer.current.offsetHeight);
 
       initialButtonContainerTop == 696969
         ? (initialButtonContainerTop = top + window.scrollY + offset)
