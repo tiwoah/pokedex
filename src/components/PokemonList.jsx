@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
 
-export default function PokemonList({ pokemonData, dataLoading }) {
+export default function PokemonList({
+  pokemonData,
+  dataLoading,
+  setSelectedPokemon,
+  setInfoPanelOpen,
+}) {
   return (
     <>
       {pokemonData.map((p) => (
-        <PokemonCard key={p.id} data={p} />
+        <PokemonCard
+          key={p.id}
+          data={p}
+          setSelectedPokemon={setSelectedPokemon}
+          setInfoPanelOpen={setInfoPanelOpen}
+        />
       ))}
+      {pokemonData.length < 1 && !dataLoading ? (
+        <div>Click the star to add a Pokémon to favorites!</div>
+      ) : (
+        <></>
+      )}
       {dataLoading && (
         <div className="page-loader">
           <img

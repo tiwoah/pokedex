@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import { toggleFavorited, isFavorite } from "../utils/favorites";
 
-export default function PokemonCard({ data }) {
+export default function PokemonCard({
+  data,
+  setSelectedPokemon,
+  setInfoPanelOpen,
+}) {
   const [backgroundImage, setBackgroundImage] = useState("");
   const [favToggled, setFavToggled] = useState(isFavorite(data.id));
   const [loaded, setLoaded] = useState(false);
@@ -14,11 +18,19 @@ export default function PokemonCard({ data }) {
 
   const [isBlurIn, setBlurIn] = useState(true);
 
-  const update = (active) => {};
+  let canClickCard = true;
 
   const handleClick = () => {
+    canClickCard = false;
     toggleFavorited(data.id);
     setFavToggled(isFavorite(data.id));
+  };
+
+  const handleCardClick = () => {
+    if (canClickCard) {
+      setSelectedPokemon(data);
+      setInfoPanelOpen(true);
+    }
   };
 
   useEffect(() => {
@@ -48,6 +60,7 @@ export default function PokemonCard({ data }) {
         data.types[0].type.name
       }
       style={loaded ? {} : { display: "none" }}
+      onClick={handleCardClick}
     >
       <div className="pokemon-card-detail">
         <img

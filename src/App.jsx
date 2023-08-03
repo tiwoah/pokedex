@@ -5,17 +5,23 @@ import PokemonList from "./components/PokemonList";
 import { getTypeIcon } from "./utils/getTypeIcon.js";
 import { getFavorites } from "./utils/favorites";
 import LoadingPage from "./components/LoadingPage";
-import logo from "./assets/logo.png"; // Import the logo image
+import logo from "./assets/logo.png";
+import InfoPanel from "./components/InfoPanel";
 
 function App() {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [scrollY, setScrollY] = useState(0);
+
   const [pokemonTypesData, setPokemonTypesData] = useState([]); // type --> normal, fighting, etc...
   const [rawPokemonData, setRawPokemonData] = useState([]); // {{id, name}, {id, name}}
   const [pokemonData, setPokemonData] = useState([]); // {{id, name}, {id, name}}
 
   const [loading, setLoading] = useState(true);
   const [dataLoading, setDataLoading] = useState(false);
-
   const [dataExtend, setDataExtend] = useState(20);
+
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [infoPanelOpen, setInfoPanelOpen] = useState(false);
 
   const myRef = useRef();
 
@@ -49,18 +55,6 @@ function App() {
     }
     const tempArray = [];
     setPokemonData([]); // without this, its too efficient. (prevents re-rendering cards causing some to not fade in)
-    // for (let count = 0; count < raw.length; count++) {
-    //   const result = await axios.get(
-    //     raw[count].url == null ? raw[count].pokemon.url : raw[count].url // if null, its getting pokemon list from api/Type
-    //   );
-    //   tempArray.push(result.data);
-    //   if (count > maxCount - 1) break;
-    // }
-    // tempArray.sort((a, b) => (a.id > b.id ? 1 : -1));
-    // setPokemonData(tempArray);
-    // setDataLoading(false);
-
-    // Fetch the data for all Pokemon concurrently using Promise.all()
     const fetchPromises = raw.slice(0, maxCount).map((pokemon) => {
       const url = pokemon.url == null ? pokemon.pokemon.url : pokemon.url;
       return axios.get(url);
@@ -122,7 +116,6 @@ function App() {
 
   const onTypeButtonClick = async (p) => {
     const urlFetch = p == "all" ? allPokemonURL : p.url;
-    // console.log("type clicked:", p.name);
     const response = await axios.get(urlFetch);
 
     setPokemonDataFromRaw(
@@ -136,58 +129,61 @@ function App() {
 
   const handleFavoritesClick = async () => {
     const favorites = getFavorites();
-    // console.log(favorites);
     setPokemonDataFromRaw(40, true, favorites);
   };
 
+  const fetchData = async () => {
+    if (!loading) {
+      console.log("Fetching data.");
+      continuePokemonData(dataExtend);
+    }
+  };
+
+  const handleScroll = (event) => {
+    setScrollY(window.scrollY);
+
+    if (loading || infoPanelOpen) {
+      window.scrollTo(0, scrollY);
+    }
+
+    if (myRef.current) {
+      const { bottom } = myRef.current.getBoundingClientRect();
+      const threshold = 0.8;
+      const isAtBottom = bottom * 0.8 <= window.innerHeight;
+
+      if (isAtBottom) {
+        if (!alreadyBottom) {
+          fetchData();
+          alreadyBottom = true;
+        }
+      }
+    }
+  };
+
   useEffect(() => {
-    // console.log("Rendering...", pokemonData, rawPokemonData);
-    // console.log("Render");
     setTimeout(() => {
       setLoading(false);
     }, 5000);
 
-    const fetchData = async () => {
-      if (!loading) {
-        console.log("Fetching data.");
-        continuePokemonData(dataExtend);
-      }
-    };
-
-    const handleScroll = () => {
-      if (myRef.current) {
-        const { bottom } = myRef.current.getBoundingClientRect();
-        const threshold = 0.8;
-        const isAtBottom = bottom * 0.8 <= window.innerHeight;
-
-        if (isAtBottom) {
-          if (!alreadyBottom) {
-            fetchData();
-            alreadyBottom = true;
-          }
-        }
-      }
-    };
+    if (loading || infoPanelOpen) {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      window.removeEventListener("scroll", handleScroll);
+    }
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [rawPokemonData, pokemonData]);
+  }, [rawPokemonData, pokemonData, infoPanelOpen]);
 
   useEffect(() => {
     initData();
-  }, []);
 
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  // Effect to add event listener for screen resize
-  useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -197,10 +193,14 @@ function App() {
     <>
       <LoadingPage />
       {
-        <div className={`main ${!loading ? "no-scroll" : ""} `}>
+        <div
+          className={`main ${loading | infoPanelOpen ? "no-scroll" : ""} ${
+            infoPanelOpen ? "blurred-background" : ""
+          }`}
+        >
           <div className="main-title">
             {/* <div className="main-title-text">POKÉDEX</div> */}
-            <img className="main-title-img" src={logo}></img>
+            <img className="main-title-img no-pointer-events" src={logo}></img>
 
             <button className="button-favorite" onClick={handleFavoritesClick}>
               <img
@@ -245,6 +245,8 @@ function App() {
             <PokemonList
               pokemonData={pokemonData}
               dataLoading={dataLoading}
+              setSelectedPokemon={setSelectedPokemon}
+              setInfoPanelOpen={setInfoPanelOpen}
             ></PokemonList>
           </div>
 
@@ -256,6 +258,12 @@ function App() {
           </div> */}
         </div>
       }
+      {infoPanelOpen && selectedPokemon && (
+        <InfoPanel
+          data={selectedPokemon}
+          onClose={() => setInfoPanelOpen(false)}
+        />
+      )}
     </>
   );
 }
