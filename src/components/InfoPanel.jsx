@@ -57,9 +57,9 @@ export default function InfoPanel({ data, onClose }) {
 
   //   clicking inside: INSIDE --> OUTSIDE
   return (
-    <div className="panel" onClick={handleOutsideClick}>
+    <div className="panel blurIn" onClick={handleOutsideClick}>
       <div
-        className={"panel-bg card-" + data.types[0].type.name}
+        className={"panel-bg shine card-" + data.types[0].type.name}
         onClick={handleInsideClick}
       >
         <div className="panel-img-container no-pointer-events">
@@ -93,6 +93,10 @@ export default function InfoPanel({ data, onClose }) {
               Weight: {data.weight / 10}kg
             </div>
             <div className="panel-container-flavor">{flavorText}</div>
+            {/* <div className="panel-info-buttons">
+              <button>Stats</button>
+              <button>Evolution</button>
+            </div> */}
           </div>
         </div>
       </div>

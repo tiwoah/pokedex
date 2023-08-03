@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Epilogue&family=Lexend&family=Urbanist:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Epilogue&family=Inter:wght@500;600;700;800&family=Lexend&family=Poppins:wght@300;500;600&family=Sora:wght@400;700&family=Urbanist:wght@400;900&family=Work+Sans:wght@500;600;700&display=swap');
 
 html, body {
   position: relative;
@@ -11,7 +11,7 @@ html {
 }
 
 * {
-  font-family: 'Lexend', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 html::before {
@@ -143,7 +143,7 @@ html::before {
 }
 
 .blurred-background {
-  filter: blur(14px);
+  filter: blur(8px);
   pointer-events: none;
 }
 
@@ -196,7 +196,6 @@ html::before {
   width: 5vw;
   height: 5vw;
   border-radius: 1vw;
-  text-transform: uppercase;
   border: none;
   box-shadow: 0px 0px 4px rgb(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
@@ -204,6 +203,7 @@ html::before {
   justify-content: center;
   align-items: center;
   z-index: 2;
+  padding: 0.5vw;
 }
 
 .button-favorite:hover {
@@ -307,14 +307,14 @@ html::before {
   background-color: aliceblue;
   width: calc(33% - 50px);
   min-width: 250px;
-  max-width: 450px;
+  max-width: 650px;
   padding-bottom: 5%; /* aspect ratio trick */
   position: relative;
   border-radius: 30px;
   color: #FFF;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
   box-shadow: 1px 1px 27px #b4b4b4;
-  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease;
+  transition: box-shadow 0.3s ease-in-out, transform 0.15s ease;
 }
 
 .blurIn {
@@ -353,8 +353,8 @@ html::before {
 
 .pokemon-name {
   font-size: 1.5vw;
-  font-weight: 600;
-  text-transform: capitalize;
+  font-weight: 800;
+  text-transform: uppercase;
   width: 70%;
 }
 
@@ -369,10 +369,14 @@ html::before {
   width: fit-content;
   border-radius: 20px;
   padding: 8px;
-  font-size: 0.6vw;
-  text-transform: uppercase;
-  text-shadow: 0px 0px 2px black;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 4px;
+  font-size: 0.8vw;
+  text-transform: capitalize;
+  text-shadow: 0px 0px 1px black;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
 }
 
 .pokemon-card-detail {
@@ -409,7 +413,8 @@ html::before {
 .pokemon-img {
   width: 55%;
   position: absolute;
-  top: -15%;
+  top: 50%;
+  transform: translateY(-55%);
   right: -5%;
   pointer-events: none;
 }
@@ -515,27 +520,27 @@ html::before {
 
 .panel-bg {
   width: 40vw;
-  height: 30vw;
+  height: auto;
   border-radius: 40px;
   box-shadow: 0 0 255px rgba(0, 0, 0, 1);
+  position: relative;
 }
+
 
 .panel-img-container {
   width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
+  height: 100%;
+  position: absolute;
   z-index: 1;
 }
 
 .panel-pokemon-img {
-  width: 70%;
+  width: 50%;
   position: absolute;
-  right: -25%;
-  top: -50px;
+  right: -10%;
+  top: 50%;
+  transform: translateY(-80%);
 }
-
-
 
 
 .panel-container {
@@ -554,6 +559,31 @@ html::before {
   overflow: hidden;
 }
 
+.panel-container-detail::before {
+  content: "";
+  background: transparent;
+  position: absolute;
+  height: 200%;
+  width: 120px;
+  background: #f3f3f3;
+  box-shadow: 0 0 10px #fff;
+  filter: blur(55px);
+  opacity: 0.7;
+  top: -30px;
+  transition: 0.7s;
+  transform: rotate(55deg) translate(40vw, -50%);
+  animation: shine-animation 2.5s ease-in-out 0s infinite;
+}
+
+@keyframes shine-animation {
+  0% {
+    transform: rotate(55deg) translate(-30vw, -50%);
+  }
+  20%, 100% {
+    transform: rotate(55deg) translate(40vw, -50%);
+  }
+}
+
 .panel-container-detail-bg {
   position: absolute;
   right: -15%;
@@ -566,7 +596,7 @@ html::before {
 .panel-container-info {
   padding: 50px;
   color: white;
-  text-shadow: 0 0 0.2em rgba(0,0,0, 1);
+  text-shadow: 0 0 0.15em rgba(0,0,0, 1);
   font-size: 1vw;
 }
 
@@ -586,6 +616,7 @@ html::before {
 
 .panel-container-flavor {
   width: 50%;
+  padding: 30px 0px 30px 0px;
 }
 
 /*  */
@@ -862,7 +893,7 @@ html::before {
 }
 
 
-@media (max-width: 600px) {  
+@media (max-width: 880px) {  
 
   .main-title {
     width: 90%;
@@ -902,26 +933,28 @@ html::before {
   }
 
   .pokemon-name {
-    font-size: 20px;
+    font-size: 5vw;
     width: 50%;
   }
 
   .tag {
-    font-size: 8px;
-  }
-
-  .panel-pokemon-img {
-    width: 65%;
-    position: absolute;
-    right: -5%;
-    top: -50px;
+    font-size: 3vw;
   }
 
   .panel-bg {
     width: 90%;
-    height: 30vh;
+    height: auto;
     border-radius: 40px;
     box-shadow: 0 0 255px rgba(0, 0, 0, 1);
+  }
+
+  @keyframes shine-animation {
+    0% {
+      transform: rotate(55deg) translate(-140vw, -50%);
+    }
+    100% {
+      transform: rotate(55deg) translate(80vw, -50%);
+    }
   }
 
   .panel-container-info {
