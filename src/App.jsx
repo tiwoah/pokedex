@@ -176,7 +176,7 @@ function App() {
 
       console.log(window.scrollY);
 
-      if (window.scrollY > initialButtonContainerTop) {
+      if (window.scrollY >= initialButtonContainerTop) {
         setBtnContainerOffScreen(true);
       } else {
         initialButtonContainerTop = top + window.scrollY + offset;
