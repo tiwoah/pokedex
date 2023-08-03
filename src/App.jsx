@@ -145,7 +145,7 @@ function App() {
 
   let initialButtonContainerTop = 696969;
   let offset = -20;
-  let btnContainerBottomPadding = 60;
+  let btnContainerBottomPadding = 70;
   const handleScroll = (event) => {
     setScrollY(window.scrollY);
 
