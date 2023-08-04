@@ -606,8 +606,9 @@ html::before {
 .panel-container-info {
   padding: 50px;
   color: white;
-  text-shadow: 0 0 0.15em rgba(0,0,0, 1);
-  font-size: 1vw;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+  font-size: 0.8vw;
+  background: transparent;
 }
 
 .panel-container-id {
@@ -625,55 +626,11 @@ html::before {
 
 
 .panel-container-flavor {
+  font-size: 0.8vw;
   width: 50%;
   padding: 30px 0px 30px 0px;
   min-height: 100px;
 }
-
-/*  */
-
-/* 
-
-.pokemon-types {
-  display: flex;
-  padding-top: 5px;
-  gap: 10px;
-}
-
-.tag {
-  background-color: #676767;
-  width: fit-content;
-  border-radius: 20px;
-  padding: 8px;
-  font-size: 0.6vw;
-  text-transform: uppercase;
-  text-shadow: 0px 0px 2px black;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-}
-
-.pokemon-card-detail {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  overflow: hidden;
-  background-color: transparent;
-  border-radius: 30px;
-}
-
-.pokemon-card-dots {
-  background-image: radial-gradient(black 2px, transparent 0);
-  background-size: 15px 15px;
-  background-position: 0px 0px;
-  width: 40%;
-  height: 20%;
-  position: absolute;
-  left: 15%;
-  bottom: 0%;
-  opacity: 0.05;
-} */
-/*  */
-
 
 .bottom {
   display: flex;
@@ -968,10 +925,15 @@ html::before {
     }
   }
 
+  .panel-pokemon-img {
+    right: 0%;
+    top: 50%;
+    transform: translateY(-75%);
+  }
+
   .panel-container-info {
-    padding: 50px;
+    padding: 2em;
     color: white;
-    text-shadow: 0 0 0.2em rgba(0,0,0, 1);
     font-size: 3vw;
   }
 
@@ -986,4 +948,16 @@ html::before {
     text-transform: capitalize;
     width: 70%;
   }
+
+  .panel-container-flavor {
+    font-size: 2.3vw;
+    min-height: 20px;
+  }
+
+  /* .panel-container-flavor {
+    font-size: 0.8vw;
+    width: 50%;
+    padding: 30px 0px 30px 0px;
+    min-height: 100px;
+  } */
 }
