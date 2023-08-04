@@ -4,6 +4,7 @@ html, body {
   position: relative;
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 html {
@@ -43,11 +44,6 @@ html::before {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 25px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
 
 /* LOADING PAGE */
@@ -207,9 +203,7 @@ html::before {
   padding: 0.5vw;
 }
 
-.button-favorite:hover {
-  transform: scale(120%) translateY(-40%);
-}
+
 
 .button-favorite-img {
   width: 100%;
@@ -280,9 +274,7 @@ html::before {
 
 }
 
-.button:hover {
-  transform: scale(115%);
-}
+
 
 .active {
   /* box-shadow: 0px 0px 3px rgb(0, 0, 0, 1); */
@@ -345,10 +337,7 @@ html::before {
   }
 }
 
-.pokemon-card:hover {
-  transform: scale(105%);
-  box-shadow: 0px 0px 35px #000;
-}
+
 
 .pokemon-card-container {
   padding: 30px;
@@ -444,9 +433,6 @@ html::before {
 }
 
 
-.pokemon-card-favorite:hover {
-  transform: scale(110%);
-}
 
 
 .bob {
@@ -953,11 +939,30 @@ html::before {
     font-size: 2.3vw;
     min-height: 20px;
   }
+}
 
-  /* .panel-container-flavor {
-    font-size: 0.8vw;
-    width: 50%;
-    padding: 30px 0px 30px 0px;
-    min-height: 100px;
-  } */
+@media (hover: hover) {
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .button-favorite:hover {
+    transform: scale(120%) translateY(-40%);
+  }
+
+  .button:hover {
+    transform: scale(115%);
+  }
+
+  .pokemon-card:hover {
+    transform: scale(105%);
+    box-shadow: 0px 0px 35px #000;
+  }
+
+  .pokemon-card-favorite:hover {
+    transform: scale(110%);
+  }
+  
 }
