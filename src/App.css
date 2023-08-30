@@ -4,7 +4,7 @@ html, body {
   position: relative;
   padding: 0;
   margin: 0;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 html {
@@ -17,15 +17,19 @@ html {
 
 html::before {
   content: "";
-  background-image: url('https://img.freepik.com/free-vector/abstract-geometric-pattern-background_1319-242.jpg?w=996&t=st=1690743858~exp=1690744458~hmac=2db546c1db3736c0deb04540047702a1fe6fc942c03af84cc46f80c85c5eda4f');
-  background-size: 500px;
-  opacity: 0.3;
+  /* background-image: url('https://img.freepik.com/free-vector/abstract-geometric-pattern-background_1319-242.jpg?w=996&t=st=1690743858~exp=1690744458~hmac=2db546c1db3736c0deb04540047702a1fe6fc942c03af84cc46f80c85c5eda4f'); */
+  /* background-image: url("https://img.freepik.com/free-photo/white-grey-tile-wall-high-resolution-wallpaper-brick-seamless-texture-interior-background_1258-72185.jpg?w=360"); */
+  /* background-image: url("https://img.freepik.com/premium-vector/abstract-seamless-pattern-with-squares-holes-black-colors_444390-11179.jpg"); */
+  background-image: url("https://img.freepik.com/premium-vector/background-seamless-pattern-square-tiles-different-shades-dark-blue-colors_444390-1176.jpg?w=360");
+  background-size: 360px;
+  opacity: 0.55;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   position: absolute;
   min-height: 100vh;
+  /* width: calc(100vw + 250px); */
 }
 
 /* SCROLLBAR */
@@ -37,12 +41,12 @@ html::before {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #7A7E83;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #525252;
   border-radius: 25px;
 }
 
@@ -180,7 +184,7 @@ html::before {
 /* FAVORITES BUTTON */
 
 .button-favorite {
-  background-color: rgb(245, 245, 245);
+  background-color: #929292;
   position: absolute;
   right: 0;
   top: 50%;
@@ -232,7 +236,7 @@ html::before {
   flex-wrap: wrap;
   justify-content: center;
   margin: auto;
-  background-color: rgb(241, 241, 241);
+  background-color: #929292;
   border-radius: 40px;
   padding: 10px;
   margin-bottom: 50px;
@@ -314,7 +318,7 @@ html::before {
   border-radius: 30px;
   color: #FFF;
   text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 1px 27px #b4b4b4;
+  box-shadow: 1px 1px 27px #3f3f3f;
   transition: box-shadow 0.3s ease-in-out, transform 0.15s ease;
 }
 
