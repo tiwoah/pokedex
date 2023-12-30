@@ -22,7 +22,7 @@ html::before {
   /* background-image: url("https://img.freepik.com/premium-vector/abstract-seamless-pattern-with-squares-holes-black-colors_444390-11179.jpg"); */
   background-image: url("https://img.freepik.com/premium-vector/background-seamless-pattern-square-tiles-different-shades-dark-blue-colors_444390-1176.jpg?w=360");
   background-size: 360px;
-  opacity: 0.55;
+  opacity: 1;
   top: 0;
   left: 0;
   bottom: 0;
@@ -184,7 +184,7 @@ html::before {
 /* FAVORITES BUTTON */
 
 .button-favorite {
-  background-color: #929292;
+  background-color: #101A24;
   position: absolute;
   right: 0;
   top: 50%;
@@ -236,7 +236,7 @@ html::before {
   flex-wrap: wrap;
   justify-content: center;
   margin: auto;
-  background-color: #929292;
+  background-color: #101A24;
   border-radius: 40px;
   padding: 10px;
   margin-bottom: 50px;
